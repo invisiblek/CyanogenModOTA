@@ -26,13 +26,7 @@
         private $list = array();
 
         public function __construct($channels, $physicalPath, $device) {
-            if (in_array('stable', $channels) || in_array('nightly', $channels)) {
-                $stableDir = $physicalPath . '/nightly';
-                $this->add($stableDir, $device, 'nightly');
-            }
-            if (in_array('nightly', $channels)) {
-                $this->add($physicalPath, $device, 'nightly');
-            }
+            $this->add($physicalPath, $device, 'unofficial');
             usort($this->list, function($a,$b){ /*Reverse order (b-a)*/ return $b->timestamp - $a->timestamp; });
         }
 
