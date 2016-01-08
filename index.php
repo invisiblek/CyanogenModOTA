@@ -57,7 +57,7 @@
         $log->logWrite($req->ip . ' ' . $postJson->params->device . ' ' . $postJson->params->source_incremental);
         if ($postJson != NULL && !empty($postJson->params) && !empty($postJson->params->device)) {
             $device = $postJson->params->device;
-            $devicePath = realpath('./_builds/'.$device);
+            $devicePath = realpath('./_builds/');
             if (file_exists($devicePath)) {
                 if (!empty($postJson->params->source_incremental)) {
                     // Delete from cache unless found
