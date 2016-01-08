@@ -58,7 +58,7 @@
                     $api_level = intval($this->getBuildPropValue($buildpropArray, 'ro.build.version.sdk'));
                     $incremental = $this->getBuildPropValue($buildpropArray, 'ro.build.version.incremental');
                     $timestamp = intval($this->getBuildPropValue($buildpropArray, 'ro.build.date.utc'));
-                    $url = $this->getBuildPropValue($buildpropArray, 'ro.build.ota.url');
+                    $url = 'https://' . $_SERVER['HTTP_HOST'] . '/_builds/' . explode("/", $filePath)[4];
                     $cache = array($device, $api_level, $incremental, $timestamp, Utils::getMD5($filePath), $url);
                     $mc->set($filePath, $cache);
                     $mc->set($incremental, array($device, $channel, $filePath));
