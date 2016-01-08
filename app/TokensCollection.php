@@ -42,7 +42,8 @@
 
             $dirIterator = new DirectoryIterator($dir);
             foreach ($dirIterator as $fileinfo) {
-                if ($fileinfo->isFile() && $fileinfo->getExtension() == 'zip' &&
+                if (strpos($fileinfo->getFilename(), $device) !== false &&
+                    $fileinfo->isFile() && $fileinfo->getExtension() == 'zip' &&
                     file_exists($dir.'/'.$fileinfo->getFilename().'.md5sum')) {
                     $token = new Token($fileinfo->getFilename(), $dir, $device, $channel);
                     $this->list[] = $token;
