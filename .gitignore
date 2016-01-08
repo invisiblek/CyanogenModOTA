@@ -1,3 +1,4 @@
-_builds/
-_deltas/
-_last/
+_builds
+_deltas
+_last
+logs
