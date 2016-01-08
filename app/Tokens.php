@@ -52,7 +52,7 @@
             $mc = Flight::mc();
             $cache = $mc->get($filePath);
             if (true) {
-                $buildpropArray = explode("\n", file_get_contents('zip://'.$filePath.'#system/build.prop'));
+                $buildpropArray = explode("\n", file_get_contents($filePath.'.build.prop'));
                 if ($device == $this->getBuildPropValue($buildpropArray, 'ro.product.device') ||
                     $device == $this->getBuildPropValue($buildpropArray, 'ro.cm.device')) {
                     $api_level = intval($this->getBuildPropValue($buildpropArray, 'ro.build.version.sdk'));
