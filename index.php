@@ -43,6 +43,14 @@
         Flight::redirect('/_builds');
     });
 
+    Flight::route('/graph', function(){
+        Flight::redirect('/_builds/graph');
+    });
+
+    Flight::route('/graph/api', function(){
+        Flight::redirect('/_builds/graph/api.php');
+    });
+
     // All builds
     Flight::route('/api', function(){
         $ret = array(
