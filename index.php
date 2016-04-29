@@ -60,7 +60,7 @@
         );
 
         $req = Flight::request();
-        $postJson = json_decode($req->body);
+        $postJson = json_decode($req::getBody());
         $log = new Logger();
         //$log->logWrite($req->ip . ' ' . $postJson->params->device . ' ' . $postJson->params->source_incremental);
         if ($postJson != NULL && !empty($postJson->params) && !empty($postJson->params->device)) {
@@ -85,7 +85,7 @@
     Flight::route('/api/v1/build/get_delta', function(){
         $ret = array();
         $req = Flight::request();
-        $postJson = json_decode($req->body);
+        $postJson = json_decode($req::getBody());
         if ($postJson != NULL && !empty($postJson->source_incremental) && !empty($postJson->target_incremental)) {
             $source_incremental = $postJson->source_incremental;
             $target_incremental = $postJson->target_incremental;
