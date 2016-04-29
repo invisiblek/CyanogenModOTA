@@ -62,7 +62,7 @@
         $req = Flight::request();
         $postJson = json_decode($req->body);
         $log = new Logger();
-        $log->logWrite($req->ip . ' ' . $postJson->params->device . ' ' . $postJson->params->source_incremental);
+        //$log->logWrite($req->ip . ' ' . $postJson->params->device . ' ' . $postJson->params->source_incremental);
         if ($postJson != NULL && !empty($postJson->params) && !empty($postJson->params->device)) {
             $device = $postJson->params->device;
             $devicePath = realpath('./_builds/');
