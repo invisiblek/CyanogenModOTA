@@ -75,9 +75,10 @@
         private function getBuildPropValue($buildProp, $key) {
             foreach ($buildProp as $line) {
                 if (!empty($line) && strncmp($line, '#', 1) != 0) {
-                    list($k, $v) = explode('=', $line, 2);
-                    if ($k == $key) {
-                        return $v;
+                    if (strpos($line, $key) !== false) {
+                        list($k, $v) = explode('=', $line, 2);
+                        if ($k == $key)
+                            return $v;
                     }
                 }
             }
