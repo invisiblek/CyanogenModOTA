@@ -22,7 +22,7 @@
         CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     */
 
-    require 'lib/flight/Flight.php';
+    require 'lib/flight/flight/Flight.php';
 
     require 'app/Tokens.php';
     require 'app/TokensCollection.php';
