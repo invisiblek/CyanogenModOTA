@@ -25,18 +25,19 @@
     class TokenCollection {
         private $list = array();
 
-        public function __construct($channels, $physicalPath, $device) {
-            $this->add($physicalPath, $device, 'unofficial');
+        public function __construct($channels, $physicalPath, $device, $version) {
+            $this->add($physicalPath, $device, 'unofficial', $version);
             usort($this->list, function($a,$b){ /*Reverse order (b-a)*/ return $b->timestamp - $a->timestamp; });
         }
 
-        private function add($dir, $device, $channel) {
+        private function add($dir, $device, $channel, $version) {
             if (!file_exists($dir))
                 return;
 
             $dirIterator = new DirectoryIterator($dir);
             foreach ($dirIterator as $fileinfo) {
                 if (strpos($fileinfo->getFilename(), $device) !== false &&
+                    strpos($fileinfo->getFilename(), $version) !== false &&
                     $fileinfo->isFile() && $fileinfo->getExtension() == 'zip' &&
                     file_exists($dir.'/'.$fileinfo->getFilename().'.md5sum') &&
                     file_exists($dir.'/'.$fileinfo->getFilename().'.build.prop')) {

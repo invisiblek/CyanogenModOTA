@@ -71,9 +71,10 @@
                     // Delete from cache unless found
                     Utils::mcFind($postJson->params->source_incremental);
                 }
+                $version = empty($postJson->params->version) ? "cm" : $postJson->params->version;
                 $channels = empty($postJson->params->channels) ? array('nightly') : $postJson->params->channels;
                 $limit = empty($postJson->params->limit) ? 25 : intval($postJson->params->limit);
-                $tokens = new TokenCollection($channels, $devicePath, $device);
+                $tokens = new TokenCollection($channels, $devicePath, $device, $version);
                 $ret['result'] = $tokens->getUpdateList($limit);
             }
         }
