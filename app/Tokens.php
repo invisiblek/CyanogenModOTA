@@ -33,16 +33,14 @@
         public $timestamp = 0;
         public $md5sum = '';
 
-        public function __construct($fileName, $physicalPath, $device, $channel) {
+        public function __construct($fileName, $physicalPath, $device, $channel, $version) {
             $this->channel = $channel;
             $this->filename = $fileName;
-            $this->url = Utils::getUrl($fileName, $device, false, $channel);
             $filePath = $physicalPath.'/'.$fileName;
-            $this->changes = 'https://' . $_SERVER['HTTP_HOST'] . '/_builds/' . explode("/", $filePath)[4] . ".changes.txt";
-            $this->mcCacheProps($filePath, $device, $channel);
+            $this->mcCacheProps($filePath, $device, $channel, $version);
         }
 
-        private function mcCacheProps($filePath, $device, $channel) {
+        private function mcCacheProps($filePath, $device, $channel, $version) {
             $mc = Flight::mc();
             $cache = $mc->get($filePath);
             if (true) {
@@ -52,11 +50,7 @@
                     $api_level = intval($this->getBuildPropValue($buildpropArray, 'ro.build.version.sdk'));
                     $incremental = $this->getBuildPropValue($buildpropArray, 'ro.build.version.incremental');
                     $timestamp = intval($this->getBuildPropValue($buildpropArray, 'ro.build.date.utc'));
-                    if (file_exists($filePath.'.url')) {
-                        $url = explode("\n", file_get_contents($filePath.'.url'))[0];
-                    } else {
-                        $url = 'https://' . $_SERVER['HTTP_HOST'] . '/_builds/' . explode("/", $filePath)[4];
-                    }
+                    $url = 'http://download.invisiblek.org/roms/' . $version . '/' . explode("/", $filePath)[4];
                     $cache = array($device, $api_level, $incremental, $timestamp, Utils::getMD5($filePath), $url);
                     $mc->set($filePath, $cache);
                     $mc->set($incremental, array($device, $channel, $filePath));

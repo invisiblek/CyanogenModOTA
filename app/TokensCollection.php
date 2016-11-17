@@ -41,7 +41,7 @@
                     $fileinfo->isFile() && $fileinfo->getExtension() == 'zip' &&
                     file_exists($dir.'/'.$fileinfo->getFilename().'.md5sum') &&
                     file_exists($dir.'/'.$fileinfo->getFilename().'.build.prop')) {
-                    $token = new Token($fileinfo->getFilename(), $dir, $device, $channel);
+                    $token = new Token($fileinfo->getFilename(), $dir, $device, $channel, $version);
                     $this->list[] = $token;
                 }
             }

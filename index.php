@@ -40,15 +40,7 @@
 
     // Root dir
     Flight::route('/', function(){
-        Flight::redirect('/_builds');
-    });
-
-    Flight::route('/graph', function(){
-        Flight::redirect('/_builds/graph');
-    });
-
-    Flight::route('/graph/api', function(){
-        Flight::redirect('/_builds/graph/api.php');
+        Flight::redirect('http://download.invisiblek.org/roms');
     });
 
     // All builds
@@ -65,13 +57,13 @@
         //$log->logWrite($req->ip . ' ' . $postJson->params->device . ' ' . $postJson->params->source_incremental);
         if ($postJson != NULL && !empty($postJson->params) && !empty($postJson->params->device)) {
             $device = $postJson->params->device;
-            $devicePath = realpath('./_builds/');
+            $version = empty($postJson->params->version) ? "cm" : $postJson->params->version;
+            $devicePath = realpath('./_builds/' . $version . '/' . $device);
             if (file_exists($devicePath)) {
                 if (!empty($postJson->params->source_incremental)) {
                     // Delete from cache unless found
                     Utils::mcFind($postJson->params->source_incremental);
                 }
-                $version = empty($postJson->params->version) ? "cm" : $postJson->params->version;
                 $channels = empty($postJson->params->channels) ? array('nightly') : $postJson->params->channels;
                 $limit = empty($postJson->params->limit) ? 25 : intval($postJson->params->limit);
                 $tokens = new TokenCollection($channels, $devicePath, $device, $version);
